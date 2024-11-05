@@ -1,10 +1,11 @@
 import pandas as pd
 import recommender as rec
+import classification as clf
 import KB
 
 
 #funzione per l'inserimento dei dati del film dall'utente
-def getUserMovie():
+def getUserMovie(choice):
     title = input("Inserire il nome del film o serie TV che hai apprezzato: ").lower()
     typeM = input(title + ' è un film? (s/n) \n -> ').lower()
     while (str(typeM) != 's' and str(typeM) != 'n'):
@@ -18,40 +19,42 @@ def getUserMovie():
     yr=releaseYear(yr)
     cast = input('Inserire un membro del cast: \n -> ').lower()
     rating = input('Inserire un voto da 1 a 10 sul film/serie TV: \n -> ').lower()
-    genreM = input('Inserisci il genere, scegliendo tra questi:\n1 action \n2 anime \n3 commedies \n4 cult \n5 documentary \n6 dramas \n7 fantasy \n8 horror \n9 kids \n10 musical \n11 nature \n12 romantic \n13 sport \n14 stand-up \n15 thrillers\n ->').lower()
-    if (genreM == '1'):
-        genreM = 'action'
-    elif (genreM == '2'):
-        genreM = 'anime'
-    elif (genreM == '3'):
-        genreM = 'comedies'
-    elif (genreM == '4'):
-        genreM = 'cult'
-    elif (genreM == '5'):
-        genreM = 'documentary'
-    elif (genreM == '6'):
-        genreM = 'dramas'
-    elif (genreM == '7'):
-        genreM = 'fantasy'
-    elif (genreM == '8'):
-        genreM = 'horror'
-    elif (genreM == '9'):
-        genreM = 'kids'
-    elif (genreM == '10'):
-        genreM = 'musical'
-    elif (genreM == '11'):
-        genreM = 'nature'
-    elif (genreM == '12'):
-        genreM = 'romantic'
-    elif (genreM == '13'):
-        genreM = 'sport'
-    elif (genreM == '14'):
-        genreM = 'standup'
-    elif (genreM == '15'):
-        genreM = 'thrillers' 
-    else:
-        while (not 1 <= int(genreM) <= 15):
-            genreM = input("Perfavore, inserisci un numero corretto.\n") 
+    genreM=''
+    if choice == 1:
+        genreM = input('Inserisci il genere, scegliendo tra questi:\n1 action \n2 anime \n3 commedies \n4 cult \n5 documentary \n6 dramas \n7 fantasy \n8 horror \n9 kids \n10 musical \n11 nature \n12 romantic \n13 sport \n14 stand-up \n15 thrillers\n ->').lower()
+        if (genreM == '1'):
+            genreM = 'action'
+        elif (genreM == '2'):
+            genreM = 'anime'
+        elif (genreM == '3'):
+            genreM = 'comedies'
+        elif (genreM == '4'):
+            genreM = 'cult'
+        elif (genreM == '5'):
+            genreM = 'documentary'
+        elif (genreM == '6'):
+            genreM = 'dramas'
+        elif (genreM == '7'):
+            genreM = 'fantasy'
+        elif (genreM == '8'):
+            genreM = 'horror'
+        elif (genreM == '9'):
+            genreM = 'kids'
+        elif (genreM == '10'):
+            genreM = 'musical'
+        elif (genreM == '11'):
+            genreM = 'nature'
+        elif (genreM == '12'):
+            genreM = 'romantic'
+        elif (genreM == '13'):
+            genreM = 'sport'
+        elif (genreM == '14'):
+            genreM = 'standup'
+        elif (genreM == '15'):
+            genreM = 'thrillers' 
+        else:
+            while (not 1 <= int(genreM) <= 15):
+                genreM = input("Perfavore, inserisci un numero corretto.\n") 
     data = {'type':[typeM],'title':[title],'cast':[cast],'genre': [genreM],'country':[country],'year_range':[yr],'ratings':[rating]}
     userMovieDF = pd.DataFrame(data)
     return userMovieDF
@@ -60,7 +63,7 @@ def getUserMovie():
 #funzione del menu principale
 def menu():
     print("Benvenuto in UnibaVision!")
-    choice = input("Scegli come proseguire: \n 1. Lasciati suggerire un nuovo film sulla base di un altro che hai apprezzato \n 2. Interroga il sistema \n 3. Esci\n --> ")
+    choice = input("Scegli come proseguire: \n 1. Lasciati suggerire un nuovo film sulla base di un altro che hai apprezzato \n 2. Scopri il genere di un film o serie TV \n 3. Interroga il sistema \n 4. Esci\n --> ")
     while (int(choice) != 1 and int(choice) != 2 and int(choice) != 3):
         choice = input("Inserisci un'opzione valida --> ")
     return int(choice)
@@ -104,14 +107,19 @@ def main():
         
         if choice == 1:
             print('INIZIAMO! \n')
-            userMovie = getUserMovie()
+            userMovie = getUserMovie(choice)
             #recommender system
             rec.main(userMovie)
         if choice == 2:
             print('INIZIAMO! \n')
+            userMovie = getUserMovie(choice)
+            #predizione genere
+            clf.main(userMovie)
+        if choice == 3:
+            print('INIZIAMO! \n')
             #interrogazione della base di conoscenza sul film
             KB.mainFunz()
-        if choice == 3:
+        if choice == 4:
             print('Uscita...\n')
             break
  

@@ -185,15 +185,15 @@ def explainResultsCluster(cluster1, cluster2, cluster3, similarities, choice):
     if(choice == 1):
         copia = cluster1.drop(columns=['ratings_range','type','genre','cast','year_range','country'])
         copia = copia.rename(columns={"sum": "similarity"})
-        print('\nLe singole metriche di similarità restituite per il cluster', choice, 'sono:\n', copia.head(), '\n')
+        print('\nLe singole metriche di similarità restituite per il cluster', choice, 'sono:\n', copia.head(10), '\n')
     if(choice == 2):
         copia = cluster2.drop(columns=['ratings_range','genre','cast','year_range','country'])
         copia = copia.rename(columns={"sum": "similarity"})
-        print('\nLe singole metriche di similarità restituite per il cluster', choice, 'sono:\n', copia.head(), '\n')
+        print('\nLe singole metriche di similarità restituite per il cluster', choice, 'sono:\n', copia.head(10), '\n')
     if(choice == 3):
         copia = cluster3.drop(columns=['ratings_range','genre','cast','year_range','country'])
         copia = copia.rename(columns={"sum": "similarity"})
-        print('\nLe singole metriche di similarità restituite per il cluster', choice ,'sono: \n', copia.head(), '\n')
+        print('\nLe singole metriche di similarità restituite per il cluster', choice ,'sono: \n', copia.head(10), '\n')
 
 def mainFunz():
     # askGenereDaTitolo
