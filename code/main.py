@@ -64,7 +64,7 @@ def getUserMovie(choice):
 def menu():
     print("Benvenuto in UnibaVision!")
     choice = input("Scegli come proseguire: \n 1. Lasciati suggerire un nuovo film sulla base di un altro che hai apprezzato \n 2. Scopri il genere di un film o serie TV \n 3. Interroga il sistema \n 4. Esci\n --> ")
-    while (int(choice) != 1 and int(choice) != 2 and int(choice) != 3):
+    while (int(choice) != 1 and int(choice) != 2 and int(choice) != 3 and int(choice) != 4):
         choice = input("Inserisci un'opzione valida --> ")
     return int(choice)
 
@@ -101,7 +101,7 @@ def main():
     #preprocessing dei dati
     #prep.main()
     choice = 0
-    while choice!=3:
+    while choice!=4:
         #menu
         choice = menu()
         
